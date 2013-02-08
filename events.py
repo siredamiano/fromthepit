@@ -2,15 +2,19 @@
 class Event:
 	
 	def __init__(self, date):
-		pass
+		self.date = date
+		
+	def get_date():
+		return self.date
 	
+	def set_date(self,date):
+		self.date = date	
 	
 class Concert(Event):
 	
-	def __init__(self, artist, openers, date, venue):
+	def __init__(self, artist, openers,venue):
 		self.artist = artist
 		self.openers = openers
-		self.date = date
 		self.venue = venue
 		
 	def get_artist():
@@ -19,8 +23,7 @@ class Concert(Event):
 	def get_openers():
 		return self.openers
 		
-	def get_date():
-		return self.date
+	
 	
 	def get_venue():
 		return self.venue
@@ -31,8 +34,7 @@ class Concert(Event):
 	def set_openers(self,openers):
 		self.openers = openers	
 	
-	def set_artist(self,date):
-		self.date = date
+	
 		
 	def set_venue(self, venue):
 		self.venue = venue
