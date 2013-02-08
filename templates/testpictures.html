@@ -1,0 +1,17 @@
+<html>
+<head>
+	<title>Test Pictures</title>
+</head>
+
+<body>
+	<div id="beerlist">
+		<ul>
+			{% for concert in concerts %}
+				{%for pictures in concert.media%}
+					<img src={{pictures}}>
+				{%endfor%}
+			{%endfor%}
+	</div>	
+</body>
+
+</html>
