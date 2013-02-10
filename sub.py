@@ -2,6 +2,7 @@ from django.shortcuts import render_to_response
 from django.template import RequestContext
 import logging
 from instagram import subscriptions
+import fromthepit.models
 
 view_logger = logging.getLogger('logview.subs_logs')
 
@@ -20,9 +21,11 @@ def instagram_sub(request):
 	verify_token = request.GET.get('hub.verify_token')
 	view_logger.info("Got hub.verify_token value: " + verify_token)
 	if challenge:
+		
 		view_logger.info("Sending challenge to Instagram")
 	    return HttpResponse(challenge)
 	else:
+		
 		reactor = subscriptions.SubscriptionsReactor()
 		view_logger.info("Creating Subscription Reactor...")
 		reactor.register_callback(subscriptions.SubscriptionType.TAG, parse_instagram_update)
@@ -43,3 +46,25 @@ def parse_instagram_update(update):
 	#TODO: CALL MODEL HERE FOR GETTING CONCERT WITH THE SUBSCRIPTION ID OR TAG
 	#AFTER THAT MAKE THE CALL TO INSTAGRAM TO GET THE RECENT MEDIA
 	view_logger.info("Processing update." + update)
+	concert_tag = update['object_id']
+	concert = models.Concert.all().filter('instagram_tag =', concert_tag)
+	if len(concert) == 0:
+		logging.info('Didnt find matching users for this update')
+	else:
+		deferred.defer(fetch_instagram_for_tag, concert_tag, _queue='instagram', _countdown=120)
+		
+		
+
+def fetch_instagram_for_tag(concert_tag, count=3):
+	from fromthepit.pictures import InstagramApiWrapper
+	
+	ig_api = InstagramApiWrapper(CONFIG['client_id'], CONFIG['client_secret'])
+	
+	ig_api.searchPicturesByTag(10,)
+
+	user = models.User.get_by_id(user_id)
+
+	instagram_client = client.InstagramAPI(access_token=user.instagram_auth)
+	
+	
+	

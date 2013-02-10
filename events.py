@@ -1,20 +1,39 @@
 
+from fromthepit.models import Concert
+from fromthepit.pictures import InstagramApiWrapper
+from instagram.client import InstagramAPI
+from instagram.bind import InstagramAPIError
+
+CONFIG = {
+    'client_id': 'ff1a989e5b4949a38fcd3d32f51a59d9',
+    'client_secret': '3e73e09b36074d68a04023fa5cfdae4f',
+	'callback_url': 'http://demo.fromthepit.us/sub'
+}
+
+
+
 class Event:
 	
-	def __init__(self, date):
+	def __init__(self, date, instagram_tag):
 		self.date = date
+		self.instagram_tag = instagram_tag
 		
 	def get_date():
 		return self.date
 	
 	def set_date(self,date):
 		self.date = date
-		
 	
+	def get_instagram_tag():
+		return self.instagram_tag
+		
+	def set_instagram_tag(self, instagram_tag):
+		self.instagram_tag = instagram_tag
 	
 class Concert(Event):
 	
-	def __init__(self, artist, openers,venue):
+	def __init__(self, date, instagram_tag, artist, openers,venue):
+		super.__init__(date, instagram_tag)
 		self.artist = artist
 		self.openers = openers
 		self.venue = venue
@@ -37,10 +56,26 @@ class Concert(Event):
 	def set_venue(self, venue):
 		self.venue = venue
 		
-	def create_concert():
+	def create_concert(self):
+		try:
+			ig_api = InstagramApiWrapper(CONFIG['client_id'], CONFIG['client_secret'], CONFIG['callback_url'])
+			
+			
+			
+			concert = Concert(main_artist=self.artist,openers=self.openers,concert_date=super.getDate(),venue_name=self.venue.get_venue_name(), media=ig_api.standard_resolution_pictures,)
+		
+		
+		except InstagramAPIError:
+			return InstagramAPIError.__str__
+			
+		
 		#TODO: HERE WE ARE GOING TO CREATE THE CONCERT OBJECT TO DB AND SAVE IT. ALSO CALL THE SUBSCRIPTION
 		pass
+	
+	
+	def create_subscription():
 		
+		pass
 
 class Venue():
 	

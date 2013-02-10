@@ -18,13 +18,13 @@ def showPictures(request):
 	apiCall = InstagramApiWrapper(CONFIG['client_id'],CONFIG['client_secret'])
 	view_logger.info("Configured Instagram API.")
 	
-	apiCall.searchPicturesByTag(50,'palmaviolets')
+	apiCall.searchPicturesByTag(50,'nemo')
 	view_logger.info("Made call to Instagram with the tag info.")
-	concert = Concert(main_artist='Palma Violets',openers=[],concert_date=date.today(),location='Pianos', media=apiCall.standard_resolution_pictures,slug='palma-violets')
+	concert = Concert(main_artist='Nemo',openers=[],concert_date=date.today(),venue_name='Pianos', media=apiCall.standard_resolution_pictures,slug='nemo', concert_id=1)
 	view_logger.info("Created concert object to save in database.")
 	concert.save()
 	view_logger.info("Save concert object to db.")
-	concerts = Concert.objects.filter(slug='palma-violets')
+	concerts = Concert.objects.filter(slug='nemo')
 	view_logger.info("Look into db for list of media.")
 	context = {'concerts': concerts}
 	view_logger.info("Created context to send in the response.")

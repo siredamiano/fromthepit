@@ -16,7 +16,7 @@ DATABASES = {
         'USER': '',                      # Not used with sqlite3.
         'PASSWORD': '',                  # Not used with sqlite3.
         'HOST': '',                      # Set to empty string for localhost. Not used with sqlite3.
-        'PORT': '',                      # Set to empty string for default. Not used with sqlite3.
+        'PORT': 28026,                      # Set to empty string for default. Not used with sqlite3.
     }
 }
 
@@ -131,7 +131,7 @@ INSTALLED_APPS = (
 # more details on how to customize your logging configuration.
 
 import os
-ENV_ROOT = os.path.join('/','Users','marvin','Desktop','fromthepit','logs')
+ENV_ROOT = os.path.join('/','home','siredamiano','webapps','fromthepit','logs')
 
 LOGGING = {
     'version': 1,
