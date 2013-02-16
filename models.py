@@ -1,5 +1,5 @@
 from django.db import models
-rom django.template.defaultfilters import slugify
+from django.template.defaultfilters import slugify
 from djangotoolbox.fields import ListField, EmbeddedModelField
 
 class Event(models.Model):

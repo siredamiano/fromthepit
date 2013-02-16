@@ -121,7 +121,9 @@ INSTALLED_APPS = (
     # Uncomment the next line to enable admin documentation:
     # 'django.contrib.admindocs',
     'fromthepit',
-	'django_tornado'
+    'djcelery',
+	'djangotoolbox',
+	'django_mongodb_engine'
 )
 
 # A sample logging configuration. The only tangible logging
@@ -180,3 +182,20 @@ LOGGING = {
 		},
     }
 }
+
+import djcelery
+djcelery.setup_loader()
+
+#Broker URL for CELERY
+BROKER_URL = 'mongodb://localhost:28026/celery'
+
+#Configuration for MONGODB in CELERY
+#CELERY_RESULT_BACKEND = "mongodb"
+#CELERY_MONGODB_BACKEND_SETTINGS = {
+#    "host": "localhost",
+#    "port": 28026,
+#    "user": "siredamiano",
+#    "password": "iamhollywood",
+#    "database": "celery",
+#    "taskmeta_collection": "celery_taskmeta",
+#}
