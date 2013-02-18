@@ -29,6 +29,12 @@ class Event:
 		
 	def set_instagram_tag(self, instagram_tag):
 		self.instagram_tag = instagram_tag
+		
+	def create_subscription(tag):
+		ig_api = InstagramApiWrapper(CONFIG['client_id'], CONFIG['client_secret'], CONFIG['callback_url'])
+		ig_api.create_subscription_by_tag(tag)
+		subs_list = ig_api.list_subscription()
+		pass
 	
 class Concert(Event):
 	
@@ -59,22 +65,12 @@ class Concert(Event):
 	def create_concert(self):
 		try:
 			ig_api = InstagramApiWrapper(CONFIG['client_id'], CONFIG['client_secret'], CONFIG['callback_url'])
-			
-			
-			
-			concert = Concert(main_artist=self.artist,openers=self.openers,concert_date=super.getDate(),venue_name=self.venue.get_venue_name(), media=ig_api.standard_resolution_pictures,)
-		
-		
+			concert = Concert(main_artist=self.artist,openers=self.openers,concert_date=super.getDate(),venue_name=self.venue.get_venue_name(), media=ig_api.standard_resolution_pictures, instagram_tag=super.get_instagram_tag())
+			super.create_subscription(super.get_instagram_tag())
 		except InstagramAPIError:
 			return InstagramAPIError.__str__
 			
-		
 		#TODO: HERE WE ARE GOING TO CREATE THE CONCERT OBJECT TO DB AND SAVE IT. ALSO CALL THE SUBSCRIPTION
-		pass
-	
-	
-	def create_subscription():
-		
 		pass
 
 class Venue():
