@@ -8,19 +8,19 @@ from django.conf import settings
 #admin.autodiscover()
 
 urlpatterns = patterns('',
-    # Examples:
-    # url(r'^$', 'fromthepit.views.home', name='home'),
-    # url(r'^fromthepit/', include('fromthepit.foo.urls')),
+# Examples:
+# url(r'^$', 'fromthepit.views.home', name='home'),
+# url(r'^fromthepit/', include('fromthepit.foo.urls')),
 
-    # Uncomment the admin/doc line below to enable admin documentation:
-    # url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
+# Uncomment the admin/doc line below to enable admin documentation:
+# url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
 
-    # Uncomment the next line to enable the admin:
-    #url(r'^admin/', include(admin.site.urls)),
-    url(r'^$', 'fromthepit.views.hello'),
-    url(r'^pictures/$', 'fromthepit.views.showPictures'),
-    url(r'^sub/$', 'fromthepit.sub.instagram_sub'),
+# Uncomment the next line to enable the admin:
+#url(r'^admin/', include(admin.site.urls)),
+url(r'^$', 'fromthepit.views.hello'),
+url(r'^pictures/$', 'fromthepit.views.showPictures'),
+url(r'^coachella/$', 'fromthepit.views.showPicturesCoachella'),
 )
 
 if settings.DEBUG:
-    urlpatterns += staticfiles_urlpatterns()
+	urlpatterns += staticfiles_urlpatterns()

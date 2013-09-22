@@ -3,37 +3,51 @@ from django.template.defaultfilters import slugify
 from djangotoolbox.fields import ListField, EmbeddedModelField
 
 class Event(models.Model):
-	kind = models.ForeignKey('Concert')
-		
+	type_of_event = models.CharField(max_length=25)
+	date = models.DateField()
+	
+
 
 class Concert(models.Model):
-	main_artist = models.CharField(max_length=255)
+	event_info = models.ForeignKey('Event')
+	concert_id = models.AutoField(primary_key=True)
+	main_artist = models.ForeignKey('Artist')
 	openers = ListField(EmbeddedModelField('Opener'))
-	concert_date = models.DateField()
-	venue_name = models.CharField(max_length = 255)
-	venue_location_coordinates = models.CharField(max_length = 255)
-	media = ListField()
+	venue = models.ForeignKey('Venue')
+	subscription_id = models.CharField(max_length=100)
+	instagram_tag = models.CharField(max_length=50)
+	media = ListField(EmbeddedModelField('Picture'))
 	slug = models.SlugField(unique=True)
-	concert_id = models.IntegerField(primary_key=True)
-	subscription_id = models.CharField(max_length=255)
-	instagram_tag = models.CharField(max_length=255)
-	
+
 	def __unicode__(self):
-		return self.main_artist
+		return self.main_artist.name
 
 	def save(self, *args, **kwargs):
-		if not self.id:
+		if not self.concert_id:
 			# Newly created object, so set slug
-			self.slug = slugify(self.main_artist)
+			self.slug = slugify(self.main_artist.name)
+		
+		super(Concert, self).save(*args, **kwargs)
 
-			super(Concert, self).save(*args, **kwargs)
 
-
-class Opener(models.Model):
-	artist_name = models.CharField(max_length=255)
-	opener_media = ListField()
-	
+class Opener(Concert):
+	pass
 
 class Venue(models.Model):
-	pass
-    
+	city = models.CharField(max_length=50)
+	venue_name = models.CharField(max_length=50)
+	venue_location_lat = models.CharField(max_length=50)
+	venue_location_long = models.CharField(max_length=50)
+	foursquare_location_id = models.CharField(max_length=100)
+	instagram_location_id = models.CharField(max_length=25)
+	
+class Artist(models.Model):
+	name = models.CharField(max_length=50)
+	info = models.CharField(max_length=255)
+
+class Picture(models.Model):
+	instagram_user = models.CharField(max_length=50)
+	standard_url = models.CharField(max_length=255)
+	low_res_url = models.CharField(max_length=255)
+	thumbnail_url = models.CharField(max_length=255)
+	votes = models.CharField(max_length=15)

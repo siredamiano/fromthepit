@@ -1,35 +1,49 @@
 from instagram.client import InstagramAPI
 from instagram import subscriptions
+import sys
+import os
+
+sys.path.append('/home/siredamiano/webapps/fromthepit')
+os.environ['DJANGO_SETTINGS_MODULE'] = 'fromthepit.settings'
 
 CONFIG = {
     'client_id': 'ff1a989e5b4949a38fcd3d32f51a59d9',
     'client_secret': '3e73e09b36074d68a04023fa5cfdae4f',
-	'callback_url': 'http://fromthepit.us/sub'
+	'callback_url': 'http://demo.fromthepit.us/sub'
 }
+
+def do_tag_subscription(client, tag):
+	client.create_subscription(object='tag',object_id=tag, aspect='media', callback_url=CONFIG['callback_url'])
+	print 'Made the subscription to tag: ' + tag
+	
+def do_location_subscription(client, location_id):
+	client.create_subscription(object='location',object_id=location_id, aspect='media', callback_url=CONFIG['callback_url'])
+	print 'Made the subscription to location: ' + location_id
+
+def delete_subscription(client, id):
+	client.delete_subscriptions(id=id)
+	print instagram_client.list_subscriptions()
+
 
 
 instagram_client = InstagramAPI(client_id=CONFIG['client_id'], client_secret=CONFIG['client_secret'])
-print 'Open connection to Instagram API'
-tag = 'gojira'
-instagram_client.create_subscription(object='tag',object_id=tag, aspect='media', callback_url=CONFIG['callback_url'])
-print 'Made the subscription to tag: ' + tag
 
-tag = 'theatlasmoth'
-instagram_client.create_subscription(object='tag',object_id=tag, aspect='media', callback_url=CONFIG['callback_url'])
-print 'Made the subscription to tag: ' + tag
+print 'Open connection to Instagram API'
+tag = 'muse'
+#location = 185096
+do_tag_subscription(instagram_client,tag)
+#do_location_subscription(instagram_client, location)
 
 subs_list = instagram_client.list_subscriptions()
 
 print subs_list
 
-index = 0
-tag = 'gojira'
-for data in subs_list['data']:
-	if data['object_id'] == tag:
-		print data['id']
+#index = 0
+#for data in subs_list['data']:
+#	if data['object_id'] == tag:
+#		print data['id']
 
-instagram_client.delete_subscriptions(id=2896995)
-instagram_client.delete_subscriptions(id=2896996)
+#delete_subscription(instagram_client,3074992)
 
-print instagram_client.list_subscriptions()
+
 

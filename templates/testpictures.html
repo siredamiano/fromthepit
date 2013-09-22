@@ -4,13 +4,11 @@
 </head>
 
 <body>
-	<div id="beerlist">
+	<div id="concertlist">
 		<ul>
-			{% for concert in concerts %}
-				{%for pictures in concert.media%}
-					<img src={{pictures}}>
+				{%for pictures in concerts.media%}
+					<img src={{pictures.standard_url}}>
 				{%endfor%}
-			{%endfor%}
 	</div>	
 </body>
 

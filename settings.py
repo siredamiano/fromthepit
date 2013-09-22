@@ -109,21 +109,22 @@ TEMPLATE_DIRS = (
 	'/home/siredamiano/webapps/fromthepit/fromthepit/templates/'
 )
 
-INSTALLED_APPS = (
+INSTALLED_APPS =( 
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.sites',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    #'django_admin_bootstrapped',
     # Uncomment the next line to enable the admin:
-    'django.contrib.admin',
+    #'django.contrib.admin',
     # Uncomment the next line to enable admin documentation:
     # 'django.contrib.admindocs',
     'fromthepit',
     'djcelery',
 	'djangotoolbox',
-	'django_mongodb_engine'
+	'django_mongodb_engine',
 )
 
 # A sample logging configuration. The only tangible logging
@@ -154,7 +155,7 @@ LOGGING = {
         'file_views':{
             'level': 'DEBUG',
             'class': 'logging.FileHandler',
-            'filename': os.path.join(ENV_ROOT,'views_log.log'),
+            'filename': os.path.join(ENV_ROOT,'views.log'),
 			'formatter': 'verbose'
         },
 		'file_subs':{
