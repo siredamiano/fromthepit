@@ -1,7 +1,5 @@
 import pylast
 
-API_KEY = "648cd04627171fd89c2881c6a27c5bb1" 
-API_SECRET = "is b6357b416bdcdee587ff37fc28f70895"
 
 username = ""
 password_hash = pylast.md5("")

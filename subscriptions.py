@@ -3,9 +3,9 @@ from instagram import subscriptions
 
 
 CONFIG = {
-    'client_id': 'ff1a989e5b4949a38fcd3d32f51a59d9',
-    'client_secret': '3e73e09b36074d68a04023fa5cfdae4f',
-	'callback_url': 'http://demo.fromthepit.us/sub'
+    'client_id': '',
+    'client_secret': '',
+	'callback_url': ''
 }
 	
 

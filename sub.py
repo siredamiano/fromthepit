@@ -9,8 +9,8 @@ from django.http import HttpResponse
 subs_logger = logging.getLogger('logview.subs_logs')
 
 CONFIG = {
-	'client_id': 'ff1a989e5b4949a38fcd3d32f51a59d9',
-	'client_secret': '3e73e09b36074d68a04023fa5cfdae4f'
+	'client_id': '',
+	'client_secret': ''
 }
 
 def instagram_sub(request):
